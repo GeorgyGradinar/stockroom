@@ -1,0 +1,32 @@
+<template xmlns="">
+  <Index></Index>
+</template>
+
+<script lang="ts" setup>
+import Index from './pages/index.vue'
+</script>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;500&display=swap');
+
+:root {
+  --blue-color: #2D3B87;
+  --light-blue: #969DC3;
+  --main-background-color: #FFFFFF;
+  --grey-color: #E0E3EE;
+  --main-light-gray-color: #F4F5F9;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Rubik", sans-serif;
+}
+
+body {
+  display: flex;
+  justify-content: center;
+}
+
+</style>
