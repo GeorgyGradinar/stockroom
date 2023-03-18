@@ -8,14 +8,7 @@ import Index from './pages/index.vue'
 
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;500&display=swap');
-
-:root {
-  --blue-color: #2D3B87;
-  --light-blue: #969DC3;
-  --main-background-color: #FFFFFF;
-  --grey-color: #E0E3EE;
-  --main-light-gray-color: #F4F5F9;
-}
+@import "@/style/variables-style.css";
 
 * {
   margin: 0;

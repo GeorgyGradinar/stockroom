@@ -2,18 +2,10 @@
   <header>
     <section class="type-items">
       <button class="button-type-items"
-              :class="{selected:currentFilters.type === 'Все типы'}"
-              @click="changeFilters('type','Все типы')">
-        Все типы
-      </button>
-      <button class="button-type-items"
-              :class="{selected:currentFilters.type === 'Прямые продажи'}"
-              @click="changeFilters('type', 'Прямые продажи')">Прямые продажи
-      </button>
-      <button class="button-type-items"
-              :class="{selected:currentFilters.type === 'Аукцион'}"
-              @click="changeFilters('type', 'Аукцион')">
-        Аукцион
+              v-for="type in allTypesButton"
+              :class="{selected:currentFilters.type === type}"
+              @click="changeFilters(FilterKey.Type,type)">
+        {{ type }}
       </button>
     </section>
     <section class="search-block">
@@ -22,7 +14,7 @@
     </section>
   </header>
   <Item v-for="item in Items" :getItem="item"></Item>
-
+  <button v-if="Deals.length> EMPTY_DEALS " @click="deleteAllDeals" class="delete">Очистить</button>
 </template>
 
 <script setup lang="ts">
@@ -30,12 +22,20 @@ import Item from '../components/Item.vue'
 import {ref, Ref} from 'vue'
 import {mainStore} from '~/store/store'
 import {storeToRefs} from 'pinia'
-import {ItemInterface, Filters} from "~/types";
+import updateFilters from "~/mixins/updateFilters";
+import changeDeal from "~/mixins/changeDeal";
+import {ItemInterface} from "~/types/item";
+import { FilterPage, FilterType, FilterKey} from "~/types/filters";
 
+const EMPTY_DEALS : number = 0;
 const store = storeToRefs(mainStore())
-const {changeFilters} = mainStore();
-const Items: Ref<ItemInterface[]> = ref(store.filteredItems)
-const currentFilters: Ref<(Filters)> = ref(store.filters);
+const {changeFilters} = updateFilters();
+const {deleteAllDeals} = changeDeal();
+const Items: Ref<ItemInterface[]> = ref(store.filteredItems);
+const Deals: Ref<ItemInterface[]> = ref(store.deals)
+const currentFilters: Ref<(FilterPage)> = ref(store.filters);
+const allTypesButton:string[]=[FilterType.AllType, FilterType.DirectSales, FilterType.Auction]
+
 let debounceTimeout: number;
 
 function debounceSearch(): void {
@@ -43,14 +43,14 @@ function debounceSearch(): void {
     clearTimeout(debounceTimeout);
   }
   debounceTimeout = setTimeout(() => {
-    changeFilters('search', currentFilters.value.search)
+    changeFilters(FilterKey.Search, currentFilters.value.search)
   }, 500);
 }
 
 </script>
 
 <style scoped>
-
+@import "@/style/main-button.css";
 header {
   width: 100%;
   display: flex;
@@ -61,15 +61,15 @@ header {
   display: flex;
   gap: 12px;
   padding: 12px;
-  border-radius: 10px;
+  border-radius: var(--border-radius);
   background-color: var(--main-light-gray-color);
 }
 
 .button-type-items {
   border: none;
   background-color: var(--main-light-gray-color);
-  font-weight: 500;
-  font-size: 15px;
+  font-weight: var(--main-font-weight);
+  font-size: var(--font-size);
   color: var(--light-blue);
   cursor: pointer;
   transition: opacity 0.3s;
@@ -84,7 +84,7 @@ header {
   gap: 10px;
   padding: 4px 4px 4px 20px;
   border: 1px solid var(--grey-color);
-  border-radius: 10px;
+  border-radius: var(--border-radius);
 }
 
 .search-input {
@@ -104,7 +104,7 @@ header {
   width: 40px;
   height: 40px;
   background-color: var(--blue-color);
-  border-radius: 10px;
+  border-radius: var(--border-radius);
   border: none;
 }
 

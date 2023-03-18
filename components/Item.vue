@@ -2,14 +2,14 @@
   <section class="item">
 
     <div class="image">
-      <img src="/Image.svg">
+      <img src="/Image.svg" alt="main image">
     </div>
 
     <section class="description-block">
       <p class="status">{{ item.typeDeal }}</p>
       <p class="title">{{ item.title }}</p>
       <div class="location">
-        <img src="/location.svg">
+        <img src="/location.svg" alt="logo location">
         <p>{{ item.location }}</p>
       </div>
       <p class="seller"><span>Продавец</span>{{ item.seller }}</p>
@@ -24,10 +24,9 @@
 <script setup lang="ts">
 import {ref, Ref, watch} from 'vue'
 import DealInfo from "~/components/DealInfo.vue";
-import {ItemInterface} from "~/types";
+import {ItemInterface} from "~/types/item";
 
 let props = defineProps(['getItem'])
-
 let item: Ref<ItemInterface> = ref(props.getItem)
 
 watch(() => props.getItem, first => {
@@ -41,7 +40,7 @@ watch(() => props.getItem, first => {
 .item {
   width: 100%;
   height: 360px;
-  border-radius: 10px;
+  border-radius: var(--border-radius);
   border: 1px solid var(--grey-color);
   display: flex;
 }
@@ -52,7 +51,7 @@ watch(() => props.getItem, first => {
   height: 256px;
   overflow: hidden;
   margin: 20px;
-  border-radius: 10px;
+  border-radius: var(--border-radius);
 }
 
 .image img {
@@ -61,22 +60,46 @@ watch(() => props.getItem, first => {
   object-fit: cover;
 }
 
-
 .description-block {
   padding: 20px 20px 20px 0;
 }
 
+.status,
+.location p,
+.seller span,
+.type,
+.type span,
+.quantity span,
+.price span{
+  font-weight: var(--secondary-font-weight);
+  font-size: var(--font-size);
+}
+
 .status {
-  font-weight: 400;
-  font-size: 13px;
   color: var(--light-blue);
   margin-bottom: 15px;
 }
 
-.title {
-  font-weight: 500;
-  font-size: 15px;
+.title,
+.seller,
+.description,
+.quantity p,
+.price p {
+  font-weight: var(--main-font-weight);
+  font-size: var(--font-size);
+}
+
+.title,
+.location,
+.seller,
+.type,
+.description,
+.quantity p,
+.price p{
   color: var(--blue-color);
+}
+
+.title {
   margin-bottom: 20px;
 }
 
@@ -85,14 +108,8 @@ watch(() => props.getItem, first => {
   align-items: center;
   background-color: var(--main-light-gray-color);
   padding: 5px 8px 5px 10px;
-  border-radius: 10px;
-  color: var(--blue-color);
+  border-radius: var(--border-radius);
   margin-bottom: 12px;
-}
-
-.location p {
-  font-weight: 400;
-  font-size: 13px;
 }
 
 .location img {
@@ -101,15 +118,10 @@ watch(() => props.getItem, first => {
 }
 
 .seller {
-  font-weight: 500;
-  font-size: 13px;
-  color: var(--blue-color);
   margin-bottom: 12px;
 }
 
 .seller span {
-  font-weight: 400;
-  font-size: 13px;
   color: var(--light-blue);
   margin-right: 4px;
 }
@@ -117,95 +129,19 @@ watch(() => props.getItem, first => {
 .type {
   display: inline-flex;
   flex-direction: column;
-  font-weight: 400;
-  font-size: 13px;
   background-color: var(--grey-color);
-  color: var(--blue-color);
   padding: 8px;
-  border-radius: 10px;
+  border-radius: var(--border-radius);
   margin-bottom: 12px;
 }
 
 .type span {
-  font-weight: 400;
-  font-size: 13px;
   color: var(--light-blue);
-}
-
-.description {
-  font-weight: 500;
-  font-size: 13px;
-  color: var(--blue-color);
-}
-
-
-.info-block {
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  padding: 20px;
-  border-radius: 10px;
-  border: 1px solid var(--grey-color);
-
-}
-
-.info {
-  display: block;
-  flex-direction: column;
-  gap: 15px;
-}
-
-.total-price {
-  font-weight: 500;
-  font-size: 20px;
-  color: var(--blue-color);
-}
-
-.quantity,
-.price {
-  display: flex;
-  justify-content: space-between;
 }
 
 .quantity span,
 .price span {
   color: var(--light-blue);
-  font-weight: 400;
-  font-size: 13px;
-}
-
-.quantity p,
-.price p {
-  color: var(--blue-color);
-  font-weight: 500;
-  font-size: 13px;
-}
-
-.wrapper-button {
-  display: flex;
-  gap: 12px;
-}
-
-.wrapper-button .edd-deal,
-.wrapper-button .like {
-  border-radius: 10px;
-  border: none;
-  height: 50px;
-}
-
-.wrapper-button .edd-deal {
-  width: 200px;
-  font-weight: 500;
-  font-size: 15px;
-  color: var(--blue-color);
-}
-
-.wrapper-button .like {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 50px;
 }
 
 </style>

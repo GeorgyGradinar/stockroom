@@ -13,16 +13,3 @@ export interface ItemInterface {
     statusDeal: string
     typeDeal: string
 }
-
-export interface Filters {
-    page: string
-    type: string
-    search: string
-}
-
-export enum Pages {
-    Store = 'Склад',
-    Favorite = 'Избранное',
-    Deal = 'Сделки'
-}
-
