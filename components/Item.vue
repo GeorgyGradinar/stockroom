@@ -14,7 +14,7 @@
       </div>
       <p class="seller"><span>Продавец</span>{{ item.seller }}</p>
       <p class="type"><span>Вид товара</span>{{ item.typeOfGoods }}</p>
-      <p class="description">{{ item.description }}</p>
+      <p class="description">{{ description }}...</p>
     </section>
 
     <DealInfo :item="item"></DealInfo>
@@ -29,6 +29,7 @@ import {ItemInterface} from "~/types/item";
 
 let props = defineProps(['getItem']);
 let item: Ref<ItemInterface> = ref(props.getItem);
+let description: string = item.value.description.slice(0, 300);
 
 watch(() => props.getItem, updatedItem => {
   item = ref(updatedItem);
@@ -40,7 +41,6 @@ watch(() => props.getItem, updatedItem => {
 
 .item {
   width: 100%;
-  height: 360px;
   border-radius: var(--border-radius);
   border: 1px solid var(--grey-color);
   display: flex;
@@ -53,6 +53,7 @@ watch(() => props.getItem, updatedItem => {
   overflow: hidden;
   margin: 20px;
   border-radius: var(--border-radius);
+
 }
 
 .image img {
@@ -121,6 +122,27 @@ watch(() => props.getItem, updatedItem => {
 .type span,
 .seller span {
   color: var(--light-blue);
+}
+
+@media screen and (max-width: 1000px) {
+  .item {
+    flex-direction: column;
+  }
+
+  .description-block {
+    padding: 20px;
+  }
+
+  .image {
+    width: 100%;
+    margin: 0;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .description-block {
+    padding: 10px;
+  }
 }
 
 </style>

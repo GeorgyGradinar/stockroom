@@ -1,5 +1,11 @@
 <template xmlns="">
+
+  <Head>
+    <Title>Stock room</Title>
+  </Head>
+
   <Index></Index>
+
 </template>
 
 <script lang="ts" setup>

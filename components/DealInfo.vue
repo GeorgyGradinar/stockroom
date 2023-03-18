@@ -7,7 +7,7 @@
         <span>Количество</span>
         <p>{{ currentItem.quantity }} шт.</p>
       </div>
-      <div class="details" >
+      <div class="details">
         <span>Цена за штуку</span>
         <p>{{ currentItem.price }} ₽</p>
       </div>
@@ -59,8 +59,8 @@ function countTotalPrice(currentItem: ItemInterface): number {
 }
 
 function updateFavoriteStatus(currentItem: ItemInterface): void {
-  const currentItemId:number | undefined = filters.page === Pages.Deal ? currentItem.parentId : currentItem.id;
-  if (currentItemId){
+  const currentItemId: number | undefined = filters.page === Pages.Deal ? currentItem.parentId : currentItem.id;
+  if (currentItemId) {
     updateFavorite(currentItemId);
   }
 }
@@ -72,7 +72,7 @@ function updateFavoriteStatus(currentItem: ItemInterface): void {
 @import "@/style/like-button.css";
 
 .info-block {
-  height: 100%;
+  mix-height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -106,5 +106,21 @@ function updateFavoriteStatus(currentItem: ItemInterface): void {
 .wrapper-button {
   display: flex;
   gap: 12px;
+}
+
+@media screen and (max-width: 1000px) {
+  .info-block {
+    gap: 10px;
+  }
+
+  .wrapper-button {
+    justify-content: space-between;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .info-block {
+    padding: 10px;
+  }
 }
 </style>

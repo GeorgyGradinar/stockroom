@@ -10,6 +10,8 @@ export const mainStore = defineStore('store', () => {
     const filteredItems: Ref<ItemInterface[]> = ref([]);
     const filters: Ref<FilterPage> = ref({page: '', type: '', search: ''});
     const inProgress: Ref<boolean> = ref(true);
+    const notificationDeal:Ref<boolean> = ref(false);
+    const notificationLike:Ref<boolean> = ref(false);
 
     return {
         items,
@@ -17,6 +19,8 @@ export const mainStore = defineStore('store', () => {
         pageItems,
         filteredItems,
         deals,
-        inProgress
+        inProgress,
+        notificationDeal,
+        notificationLike
     }
 })

@@ -6,8 +6,10 @@
   <div class="header-block">
     <nav class="wrapper-button">
       <button v-for="buttonPage in allButtonPages"
-          @click="updateCurrentPage(FilterKey.Page, buttonPage.page)"
-              :class="{ selected: currentPage.page ===  buttonPage.page }">
+              @click="updateCurrentPage(FilterKey.Page, buttonPage.page)"
+              :class="{ selected: currentPage.page ===  buttonPage.page,
+               notificationAddDeal:  Pages.Deal=== buttonPage.page && notificationDeal,
+               notificationAddLike:   buttonPage.page === Pages.Favorite && notificationLike}">
         <img :src="buttonPage.urlImage" alt="logo button">
         <span>{{ buttonPage.page }}</span>
       </button>
@@ -27,16 +29,24 @@ const store = storeToRefs(mainStore());
 const {updateCurrentPage} = changePage();
 const currentPage: Ref<(FilterPage)> = ref(store.filters);
 const inProgress: Ref<boolean> = ref(store.inProgress);
+const notificationDeal: Ref<boolean> = ref(store.notificationDeal);
+const notificationLike: Ref<boolean> = ref(store.notificationLike);
 
-interface ButtonPages{
-  page:string;
-  urlImage:string;
+interface ButtonPages {
+  page: string;
+  urlImage: string;
 }
-const allButtonPages: ButtonPages[] = [{page:Pages.Favorite, urlImage:'/like.svg'}, {page:Pages.Store, urlImage:'/block.svg'}, {page:Pages.Deal, urlImage: '/bag.svg'}]
+
+const allButtonPages: ButtonPages[] = [
+  {page: Pages.Favorite, urlImage: '/like.svg'},
+  {page: Pages.Store, urlImage: '/block.svg'},
+  {page: Pages.Deal, urlImage: '/bag.svg'}]
 
 </script>
 
 <style scoped>
+@import "@/style/animation-notification.css";
+@import "@/style/loader.css";
 
 .header-block {
   width: 100%;
@@ -87,38 +97,31 @@ span {
   background-color: var(--main-light-gray-color);
 }
 
-.loader {
-  overflow: hidden;
-  width: 100vw;
-  height: 7px;
-  position: absolute;
-  top: 0;
-  left: 0;
-  display: flex;
-  align-items: center;
-  align-content: center;
-  justify-content: flex-start;
-  z-index: 100000;
+@media screen and (max-width: 1200px) {
+  .header-block:after {
+    width: 1000px;
+  }
 }
 
-.loader-element {
-  height: 7px;
-  width: 100%;
-  background: var(--light-blue);
+@media screen and (max-width: 1000px) {
+  .header-block:after {
+    width: 800px;
+  }
 }
 
-.loader-element:before {
-  content: '';
-  display: block;
-  background-color: var(--blue-color);
-  height: 10px;
-  width: 0;
-  animation: getWidth 3s ease-in infinite;
+@media screen and (max-width: 800px) {
+  .header-block:after {
+    width: 500px;
+  }
 }
 
-@keyframes getWidth {
-  100% {
-    width: 100%;
+@media screen and (max-width: 500px) {
+  .header-block:after {
+    width: 300px;
+  }
+
+  .header-block {
+    align-items: center;
   }
 }
 </style>

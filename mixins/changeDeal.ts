@@ -11,14 +11,12 @@ export default function changeDeal() {
     let id: number;
 
     function updateDealType(idItem: number): void {
+
         if (store.filters.page === Pages.Deal) {
             id = store.deals.findIndex((item: ItemInterface) => item.id === idItem);
-            store.deals.forEach((item: ItemInterface) => {
-                if (item.parentId === store.deals[id].parentId) {
-                    item.statusDeal = StatusDeal.Paid;
-                }
-            })
+            store.deals[id].statusDeal = StatusDeal.Paid;
         } else {
+            store.notificationDeal = true;
             id = store.items.findIndex((item: ItemInterface) => item.id === idItem);
             store.deals.push({
                 ...store.items[id],
@@ -27,10 +25,15 @@ export default function changeDeal() {
                 statusDeal: StatusDeal.Pay
             });
         }
+
+        setTimeout(() => {
+            store.notificationDeal = false;
+        }, 500)
+
         updateItems(store.items, store.deals);
     }
 
-    function deleteAllDeals():void {
+    function deleteAllDeals(): void {
         store.deals = [];
         updateItems(store.items, store.deals);
         updateCurrentPage();

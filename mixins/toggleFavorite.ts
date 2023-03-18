@@ -7,6 +7,7 @@ export default function toggleFavorite(){
     const {updateItems} = requestsServer();
 
     function updateFavorite(idItem: number): void {
+        store.notificationLike = true;
         store.items.find((item: ItemInterface) => {
             if (item.id === idItem) {
                 item.isFavorite = !item.isFavorite;
@@ -18,6 +19,11 @@ export default function toggleFavorite(){
                 item.isFavorite = !item.isFavorite;
             }
         })
+
+        setTimeout(() => {
+            store.notificationLike = false;
+        }, 500)
+
         updateItems(store.items, store.deals);
     }
 
