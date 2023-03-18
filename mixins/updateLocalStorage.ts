@@ -10,7 +10,7 @@ export default function updateLocalStorage() {
     }
 
     function getLocalStorageFilters():FilterPage {
-        return JSON.parse(localStorage.getItem('filters') || "{page:'Склад', type: 'Все типы', search: ''}");
+        return JSON.parse(localStorage.getItem(KEY_LOCAL_STORAGE) || '{"page":"Склад","type":"Все типы","search":""}');
     }
 
     return {saveToLocalStorage, getLocalStorageFilters}
