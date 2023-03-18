@@ -1,0 +1,26 @@
+
+.like {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50px;
+    border-radius: var(--border-radius);
+    border: none;
+    height: 50px;
+    cursor: pointer;
+}
+
+.logo-like {
+    width: 30px;
+    height: 30px;
+    background-color: var(--blue-color);
+    mask: url(../public/favourite.svg) no-repeat center;
+}
+
+.selected-like {
+    background-color: var(--blue-color);
+}
+
+.selected-like .logo-like {
+    background-color: var(--main-background-color);
+}
