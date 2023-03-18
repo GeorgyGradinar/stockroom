@@ -15,7 +15,7 @@
   </header>
   <section class="items">
     <Item v-for="item in Items" :getItem="item"></Item>
-    <button v-if="Deals.length && currentFilters.page === Pages.Deal" @click="deleteAllDeals" class="delete">Очистить
+    <button v-if="Items.length && currentFilters.page === Pages.Deal" @click="deleteAllDeals" class="delete">Очистить
     </button>
     <p v-if="!Items.length" class="not-found">{{currentFilters.page}} не найдены</p>
   </section>
