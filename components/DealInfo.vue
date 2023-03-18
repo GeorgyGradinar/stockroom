@@ -72,7 +72,7 @@ function updateFavoriteStatus(currentItem: ItemInterface): void {
 @import "@/style/like-button.css";
 
 .info-block {
-  mix-height: 100%;
+  max-height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
