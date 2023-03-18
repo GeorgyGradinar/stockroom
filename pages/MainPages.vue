@@ -13,8 +13,13 @@
       <button class="search-button"><img src="/search.svg" alt=""></button>
     </section>
   </header>
-  <Item v-for="item in Items" :getItem="item"></Item>
-  <button v-if="Deals.length && currentFilters.page === Pages.Deal" @click="deleteAllDeals" class="delete">Очистить</button>
+  <section class="items">
+    <Item v-for="item in Items" :getItem="item"></Item>
+    <button v-if="Items.length && currentFilters.page === Pages.Deal" @click="deleteAllDeals" class="delete">Очистить
+    </button>
+    <p v-if="!Items.length" class="not-found">{{currentFilters.page}} не найдены</p>
+  </section>
+
 </template>
 
 <script setup lang="ts">
@@ -111,5 +116,31 @@ header {
 
 .selected {
   color: var(--blue-color);
+}
+
+.items {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  margin-bottom: 50px;
+}
+
+.not-found {
+  font-weight: var(--main-font-weight);
+  font-size: 20px;
+  color: var(--blue-color);
+  margin-bottom: 15px;
+}
+
+@media screen and (max-width: 500px) {
+  header {
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .search-block {
+    justify-content: space-between;
+  }
 }
 </style>
