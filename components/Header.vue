@@ -1,26 +1,15 @@
 <template>
   <div class="loader" v-if=" inProgress ">
-    <div class="loader__element"></div>
+    <div class="loader-element"></div>
   </div>
 
   <div class="header-block">
-    <div class="decore-element"></div>
-
     <nav class="wrapper-button">
-      <button @click="changeCurrentPage(FilterKey.Page, Pages.Favorite)"
-              :class="{ selected: currentPage.page === Pages.Favorite }">
-        <img src="/like.svg" alt="">
-        <span>{{ Pages.Favorite }}</span>
-      </button>
-      <button @click="changeCurrentPage(FilterKey.Page, Pages.Store)"
-              :class="{ selected: currentPage.page === Pages.Store }">
-        <img src="/block.svg" alt="">
-        <span>{{ Pages.Store }}</span>
-      </button>
-      <button @click="changeCurrentPage(FilterKey.Page, Pages.Deal)"
-              :class="{ selected: currentPage.page === Pages.Deal }">
-        <img src="/bag.svg" alt="">
-        <span>{{ Pages.Deal }}</span>
+      <button v-for="buttonPage in allButtonPages"
+          @click="updateCurrentPage(FilterKey.Page, buttonPage.page)"
+              :class="{ selected: currentPage.page ===  buttonPage.page }">
+        <img :src="buttonPage.urlImage" alt="logo button">
+        <span>{{ buttonPage.page }}</span>
       </button>
     </nav>
   </div>
@@ -34,10 +23,16 @@ import {FilterPage, FilterKey} from "~/types/filters";
 import {Pages} from "~/types/pages";
 import changePage from "~/mixins/changePage";
 
-const store = storeToRefs(mainStore())
-const {changeCurrentPage} = changePage();
+const store = storeToRefs(mainStore());
+const {updateCurrentPage} = changePage();
 const currentPage: Ref<(FilterPage)> = ref(store.filters);
-const inProgress: Ref<boolean> = ref(store.inProgress)
+const inProgress: Ref<boolean> = ref(store.inProgress);
+
+interface ButtonPages{
+  page:string;
+  urlImage:string;
+}
+const allButtonPages: ButtonPages[] = [{page:Pages.Favorite, urlImage:'/like.svg'}, {page:Pages.Store, urlImage:'/block.svg'}, {page:Pages.Deal, urlImage: '/bag.svg'}]
 
 </script>
 
@@ -45,19 +40,22 @@ const inProgress: Ref<boolean> = ref(store.inProgress)
 
 .header-block {
   width: 100%;
-  height: 100px;
+  height: 110px;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: flex-end;
+  align-items: flex-end;
 }
 
-.decore-element {
-  width: 100%;
+.header-block:after {
+  content: '';
+  width: 1200px;
   height: 40px;
+  position: absolute;
+  top: 0;
   background-color: var(--grey-color);
   border-radius: 0 0 var(--border-radius) var(--border-radius);
 }
-
 
 .wrapper-button {
   display: flex;
@@ -89,7 +87,6 @@ span {
   background-color: var(--main-light-gray-color);
 }
 
-
 .loader {
   overflow: hidden;
   width: 100vw;
@@ -104,14 +101,13 @@ span {
   z-index: 100000;
 }
 
-.loader__element {
+.loader-element {
   height: 7px;
   width: 100%;
   background: var(--light-blue);
-
 }
 
-.loader__element:before {
+.loader-element:before {
   content: '';
   display: block;
   background-color: var(--blue-color);

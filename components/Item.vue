@@ -2,7 +2,7 @@
   <section class="item">
 
     <div class="image">
-      <img src="/Image.svg" alt="main image">
+      <img :src="item.urlImage" alt="main image">
     </div>
 
     <section class="description-block">
@@ -16,6 +16,7 @@
       <p class="type"><span>Вид товара</span>{{ item.typeOfGoods }}</p>
       <p class="description">{{ item.description }}</p>
     </section>
+
     <DealInfo :item="item"></DealInfo>
   </section>
 
@@ -26,11 +27,11 @@ import {ref, Ref, watch} from 'vue'
 import DealInfo from "~/components/DealInfo.vue";
 import {ItemInterface} from "~/types/item";
 
-let props = defineProps(['getItem'])
-let item: Ref<ItemInterface> = ref(props.getItem)
+let props = defineProps(['getItem']);
+let item: Ref<ItemInterface> = ref(props.getItem);
 
-watch(() => props.getItem, first => {
-  item = ref(first)
+watch(() => props.getItem, updatedItem => {
+  item = ref(updatedItem);
 })
 
 </script>
@@ -64,39 +65,20 @@ watch(() => props.getItem, first => {
   padding: 20px 20px 20px 0;
 }
 
-.status,
-.location p,
-.seller span,
-.type,
-.type span,
-.quantity span,
-.price span{
+.item {
   font-weight: var(--secondary-font-weight);
   font-size: var(--font-size);
+}
+
+.description-block {
+  font-weight: var(--main-font-weight);
+  font-size: var(--font-size);
+  color: var(--blue-color);
 }
 
 .status {
   color: var(--light-blue);
   margin-bottom: 15px;
-}
-
-.title,
-.seller,
-.description,
-.quantity p,
-.price p {
-  font-weight: var(--main-font-weight);
-  font-size: var(--font-size);
-}
-
-.title,
-.location,
-.seller,
-.type,
-.description,
-.quantity p,
-.price p{
-  color: var(--blue-color);
 }
 
 .title {
@@ -122,7 +104,6 @@ watch(() => props.getItem, first => {
 }
 
 .seller span {
-  color: var(--light-blue);
   margin-right: 4px;
 }
 
@@ -135,12 +116,10 @@ watch(() => props.getItem, first => {
   margin-bottom: 12px;
 }
 
-.type span {
-  color: var(--light-blue);
-}
-
 .quantity span,
-.price span {
+.price span,
+.type span,
+.seller span {
   color: var(--light-blue);
 }
 

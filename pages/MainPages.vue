@@ -2,9 +2,9 @@
   <header>
     <section class="type-items">
       <button class="button-type-items"
-              v-for="type in allTypesButton"
-              :class="{selected:currentFilters.type === type}"
-              @click="changeFilters(FilterKey.Type,type)">
+              v-for="type in allButtonTypes"
+              :class="{selected: currentFilters.type === type}"
+              @click="changeFilters(FilterKey.Type, type)">
         {{ type }}
       </button>
     </section>
@@ -14,7 +14,7 @@
     </section>
   </header>
   <Item v-for="item in Items" :getItem="item"></Item>
-  <button v-if="Deals.length> EMPTY_DEALS " @click="deleteAllDeals" class="delete">Очистить</button>
+  <button v-if="Deals.length && currentFilters.page === Pages.Deal" @click="deleteAllDeals" class="delete">Очистить</button>
 </template>
 
 <script setup lang="ts">
@@ -25,16 +25,16 @@ import {storeToRefs} from 'pinia'
 import updateFilters from "~/mixins/updateFilters";
 import changeDeal from "~/mixins/changeDeal";
 import {ItemInterface} from "~/types/item";
-import { FilterPage, FilterType, FilterKey} from "~/types/filters";
+import {FilterPage, FilterType, FilterKey} from "~/types/filters";
+import {Pages} from "~/types/pages";
 
-const EMPTY_DEALS : number = 0;
 const store = storeToRefs(mainStore())
 const {changeFilters} = updateFilters();
 const {deleteAllDeals} = changeDeal();
 const Items: Ref<ItemInterface[]> = ref(store.filteredItems);
 const Deals: Ref<ItemInterface[]> = ref(store.deals)
 const currentFilters: Ref<(FilterPage)> = ref(store.filters);
-const allTypesButton:string[]=[FilterType.AllType, FilterType.DirectSales, FilterType.Auction]
+const allButtonTypes: string[] = [FilterType.AllType, FilterType.DirectSales, FilterType.Auction]
 
 let debounceTimeout: number;
 
@@ -51,6 +51,7 @@ function debounceSearch(): void {
 
 <style scoped>
 @import "@/style/main-button.css";
+
 header {
   width: 100%;
   display: flex;

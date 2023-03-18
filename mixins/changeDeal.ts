@@ -1,13 +1,13 @@
 import {ItemInterface} from "~/types/item";
 import {Pages, StatusDeal} from "~/types/pages";
 import {mainStore} from "~/store/store";
-import requestsServer from "~/mixins/requests-server";
+import requestsServer from "~/mixins/requestsServer";
 import changePage from "~/mixins/changePage";
 
 export default function changeDeal() {
     const store = mainStore();
     const {updateItems} = requestsServer();
-    const {changeCurrentPage} = changePage();
+    const {updateCurrentPage} = changePage();
     let id: number;
 
     function updateDealType(idItem: number): void {
@@ -25,7 +25,7 @@ export default function changeDeal() {
                 parentId: store.items[id].id,
                 id: Math.floor(Math.random() * 1000),
                 statusDeal: StatusDeal.Pay
-            })
+            });
         }
         updateItems(store.items, store.deals);
     }
@@ -33,8 +33,8 @@ export default function changeDeal() {
     function deleteAllDeals():void {
         store.deals = [];
         updateItems(store.items, store.deals);
-        changeCurrentPage();
+        updateCurrentPage();
     }
 
-    return {updateDealType, deleteAllDeals}
+    return {updateDealType, deleteAllDeals};
 }

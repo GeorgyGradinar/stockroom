@@ -15,13 +15,14 @@ export default function updateFilters(){
     }
 
     function updateFilteredData(): void {
-        store.filteredItems = store.currentItems.filter((item: ItemInterface) => {
+        store.filteredItems = store.pageItems.filter((item: ItemInterface) => {
             const hasSelectedType: boolean = store.filters.type === FilterType.AllType ? true :
                 item.typeDeal === store.filters.type;
             const isIncludesSearchString: boolean = item.title.toLowerCase().includes(store.filters.search.trim().toLowerCase());
+
             return hasSelectedType && isIncludesSearchString;
         })
     }
 
-    return{changeFilters, updateFilteredData }
+    return{changeFilters, updateFilteredData };
 }

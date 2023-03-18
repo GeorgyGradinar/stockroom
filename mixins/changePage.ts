@@ -10,23 +10,27 @@ export default function changePage(){
     const {saveToLocalStorage} = updateLocalStorage();
     const {updateFilteredData} = updateFilters();
 
-    function changeCurrentPage(key?: keyof FilterPage, data?: string): void {
+    function updateCurrentPage(key?: keyof FilterPage, data?: string): void {
         if (key && data) {
             store.filters[key] = data;
         }
 
-        if (store.filters.page === Pages.Store) {
-            store.currentItems = store.items;
-        } else if (store.filters.page === Pages.Favorite) {
-            store.currentItems = store.items.filter((item: ItemInterface) => {
-                return item.isFavorite ? item : false;
-            })
-        } else if (store.filters.page === Pages.Deal) {
-            store.currentItems = store.deals;
+        switch (store.filters.page) {
+            case Pages.Store:
+                store.pageItems = store.items;
+                break;
+            case Pages.Favorite:
+                store.pageItems = store.items.filter((item: ItemInterface) => {
+                    return item.isFavorite ? item : false;
+                });
+                break;
+            case Pages.Deal:
+                store.pageItems = store.deals;
+                break;
         }
         saveToLocalStorage();
         updateFilteredData();
     }
 
-    return{changeCurrentPage}
+    return{ updateCurrentPage};
 }

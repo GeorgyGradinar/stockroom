@@ -11,7 +11,7 @@
 
 import MainPages from "~/pages/MainPages";
 import {onMounted} from "vue";
-import requestsServer from '~/mixins/requests-server'
+import requestsServer from '~/mixins/requestsServer'
 
 const {getItems} = requestsServer();
 
@@ -29,7 +29,4 @@ onMounted(() => {
   align-items: center;
   gap: 77px;
 }
-
-
-
 </style>

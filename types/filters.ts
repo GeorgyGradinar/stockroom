@@ -1,7 +1,7 @@
 export interface FilterPage {
-    page: string
-    type: string
-    search: string
+    [FilterKey.Page]: string;
+    [FilterKey.Type]: string;
+    [FilterKey.Search]: string;
 }
 
 export enum FilterType {
