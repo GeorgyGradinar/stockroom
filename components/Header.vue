@@ -117,7 +117,7 @@ span {
 
 @media screen and (max-width: 500px) {
   .header-block:after {
-    width: 300px;
+    width: 350px;
   }
 
   .header-block {

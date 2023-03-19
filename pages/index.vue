@@ -23,6 +23,7 @@ onMounted(() => {
 <style scoped>
 .main-block {
   width: 1200px;
+  /*max-width: 1200px;*/
   display: flex;
   flex-direction: column;
   justify-content: center;

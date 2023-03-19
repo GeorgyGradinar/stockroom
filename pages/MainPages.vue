@@ -1,4 +1,5 @@
 <template>
+
   <header>
     <section class="type-items">
       <button class="button-type-items"
@@ -17,8 +18,9 @@
     <Item v-for="item in Items" :getItem="item"></Item>
     <button v-if="Items.length && currentFilters.page === Pages.Deal" @click="deleteAllDeals" class="delete">Очистить
     </button>
-    <p v-if="!Items.length" class="not-found">{{currentFilters.page}} не найдены</p>
+    <p v-if="!Items.length" class="not-found">{{ currentFilters.page }} не найдены</p>
   </section>
+
 
 </template>
 
@@ -134,6 +136,7 @@ header {
 }
 
 @media screen and (max-width: 500px) {
+
   header {
     flex-direction: column;
     gap: 20px;

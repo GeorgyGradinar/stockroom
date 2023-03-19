@@ -72,13 +72,20 @@ function updateFavoriteStatus(currentItem: ItemInterface): void {
 @import "@/style/like-button.css";
 
 .info-block {
-  mix-height: 100%;
+  max-height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   padding: 20px;
   border-radius: var(--border-radius);
   border: 1px solid var(--grey-color);
+}
+
+.info{
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
 }
 
 .total-price,

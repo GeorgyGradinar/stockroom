@@ -41,6 +41,7 @@ watch(() => props.getItem, updatedItem => {
 
 .item {
   width: 100%;
+  max-height: 360px;
   border-radius: var(--border-radius);
   border: 1px solid var(--grey-color);
   display: flex;
@@ -100,6 +101,11 @@ watch(() => props.getItem, updatedItem => {
   height: 15px;
 }
 
+.location p,
+.type{
+  color: var(--purpure-color);
+}
+
 .seller {
   margin-bottom: 12px;
 }
@@ -127,6 +133,7 @@ watch(() => props.getItem, updatedItem => {
 @media screen and (max-width: 1000px) {
   .item {
     flex-direction: column;
+    max-height: none;
   }
 
   .description-block {
