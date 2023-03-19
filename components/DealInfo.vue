@@ -81,6 +81,13 @@ function updateFavoriteStatus(currentItem: ItemInterface): void {
   border: 1px solid var(--grey-color);
 }
 
+.info{
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
+}
+
 .total-price,
 .details {
   font-weight: var(--main-font-weight);
